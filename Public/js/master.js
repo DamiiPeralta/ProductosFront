@@ -3,6 +3,7 @@ $(document).ready(function() {
     // Manejar el envío del formulario de búsqueda
     $('#searchForm').submit(function(event) {
         // Evitar el envío del formulario por defecto
+        console.log("esto se esta ejecutando");
         event.preventDefault();
 
         // Obtener los valores de los campos de búsqueda
@@ -22,7 +23,7 @@ $(document).ready(function() {
             success: function(response) {
                 // Limpiar el contenedor de productos
                 $('#productosContainer').empty();
-
+            
                 // Verificar si se encontraron productos
                 if (response.productos && response.productos.length > 0) {
                     // Iterar sobre los productos y agregarlos al contenedor
@@ -36,7 +37,7 @@ $(document).ready(function() {
                         productoHtml += '<p class="card-text">Cantidad: ' + producto.cantidad + '</p>';
                         // Agregar más información si es necesario
                         productoHtml += '</div></div>';
-
+            
                         // Agregar el producto al contenedor
                         $('#productosContainer').append(productoHtml);
                     });

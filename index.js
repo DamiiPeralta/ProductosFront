@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const app = express();
 const port = 3000;
 app.use(express.static('public'));
+
 // Configuración de conexión a SQL Server
 const sequelize = new Sequelize('Tienda', 'Tienda', '123456', {
   host: '192.168.1.37',
@@ -140,18 +141,19 @@ app.get('/search', async (req, res) => {
       where: whereClause
     });
 
-    if (productos.length === 0) {
-      // No se encontraron productos que coincidan con los criterios de búsqueda
-      res.render('search', { message: 'No se encontraron productos que coincidan con los criterios de búsqueda.' });
+    // Si la solicitud es AJAX, devolver los datos como JSON
+    if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+      res.json({ productos });
     } else {
-      // Se encontraron productos, renderizar la página de resultados
+      // Si no es AJAX, renderizar la página de búsqueda
       res.render('search', { productos });
     }
   } catch (error) {
     console.error('Error al buscar productos:', error);
-    res.status(500).send('Error al buscar productos');
+    res.status(500).json({ error: 'Error al buscar productos' }); // Devolver error como JSON
   }
 });
+
 
 // Iniciar servidor
 sequelize.authenticate()
