@@ -11,7 +11,7 @@
 </head>
 <body class="container">
     <h1>Productos</h1>
-    <form action="/search" method="GET">
+    <form id="searchForm" action="/search" method="GET">
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" class="form-control" id="nombre" name="nombre">
@@ -26,6 +26,9 @@
         </div>
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
+    <!-- Contenedor para mostrar los productos -->
+    <div id="productosContainer"></div>
+    
     <!-- Enlace a jQuery (antes de Bootstrap JS) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Enlace a Bootstrap JS -->
