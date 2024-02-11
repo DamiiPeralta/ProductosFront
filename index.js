@@ -154,6 +154,38 @@ app.get('/search', async (req, res) => {
   }
 });
 
+app.get('/todoslosproductos', async (req, res) => {
+  try {
+    // Obtener los valores de los parámetros de consulta "marca" y "nombre" del formulario
+    const { marca, nombre } = req.query;
+
+    // Construir la cláusula WHERE según los valores de "marca" y "nombre"
+    let whereClause = {};
+    if (marca) {
+      whereClause.marca = { [Sequelize.Op.like]: `%${marca}%` };
+    }
+    if (nombre) {
+      whereClause.nombre = { [Sequelize.Op.like]: `%${nombre}%` };
+    }
+
+    // Obtener todos los productos con sus proveedores, aplicando los filtros si están presentes
+    const productos = await Producto.findAll({
+      attributes: ['id_producto', 'nombre', 'marca', 'cantidad', 'calidad', 'url_imagen', 'descripcion', 'precio_compra'],
+      include: [{ model: Proveedor, as: 'proveedor', attributes: ['id_proveedor', 'nombre', 'direccion', 'contacto', 'telefono'] }],
+      where: whereClause
+    });
+    
+    res.render('todoslosproductos', { productos });
+  } catch (err) {
+    console.error('Error al obtener productos:', err);
+    res.status(500).send('Error al obtener productos');
+  }
+});
+
+
+
+
+
 
 // Iniciar servidor
 sequelize.authenticate()

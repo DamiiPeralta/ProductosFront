@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos los Productos</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace a tu archivo CSS -->
+    <link rel="stylesheet" href="./Css/styles.css">
+</head>
+<body class="container">
+    <h1>Todos los Productos</h1>
+<form action="/todoslosproductos" method="GET">
+    <div class="form-group">
+        <label for="marcaInput">Filtrar por Marca:</label>
+        <input type="text" class="form-control" id="marcaInput" name="marca" placeholder="Ingrese la marca">
+    </div>
+    <div class="form-group">
+        <label for="nombreInput">Filtrar por Nombre:</label>
+        <input type="text" class="form-control" id="nombreInput" name="nombre" placeholder="Ingrese el nombre">
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<div id="productosContainer">
+    <% productos.forEach(function(producto) { %>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= producto.nombre %></h5>
+                <p class="card-text">Marca: <%= producto.marca %></p>
+                <p class="card-text">Proveedor: <%= producto.proveedor.nombre %></p>
+                <p class="card-text">Cantidad: <%= producto.cantidad %></p>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+    <!-- Enlace a jQuery (antes de Bootstrap JS) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
